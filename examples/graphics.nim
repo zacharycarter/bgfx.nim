@@ -9,6 +9,33 @@ import
 import 
   window
 
+# Printable format: "$1.$2.$3" % [MAJOR, MINOR, PATCHLEVEL]
+const
+  MAJOR_VERSION* = 2
+  MINOR_VERSION* = 0
+  PATCHLEVEL* = 5
+
+template version*(x: untyped) = ##  \
+  ##  Template to determine SDL version program was compiled against.
+  ##
+  ##  This template fills in a Version object with the version of the
+  ##  library you compiled against. This is determined by what header the
+  ##  compiler uses. Note that if you dynamically linked the library, you might
+  ##  have a slightly newer or older version at runtime. That version can be
+  ##  determined with getVersion(), which, unlike version(),
+  ##  is not a template.
+  ##
+  ##  ``x`` Version object to initialize.
+  ##
+  ##  See also:
+  ##
+  ##  ``Version``
+  ##
+  ##  ``getVersion``
+  (x).major = MAJOR_VERSION
+  (x).minor = MINOR_VERSION
+  (x).patch = PATCHLEVEL
+
 type
   Graphics* = ref TGraphics
   TGraphics* = object
@@ -24,13 +51,16 @@ when defined(macosx):
       cocoa: SysWMinfoCocoaObj
 
 when defined(linux):
-  type
-    SysWMinfoX11Obj* = object
-      display*: pointer  ##  The X11 display
-      window*: pointer  ##  The X11 window
+  import 
+    x, 
+    xlib
 
-    SysWMinfoKindObj* = object
-      x11*: SysWMinfoX11Obj
+  type
+    SysWMmsgX11Obj* = object  ## when defined(SDL_VIDEO_DRIVER_X11)
+      event*: TXEvent
+
+    SysWMmsgKindObj* = object ## when defined(SDL_VIDEO_DRIVER_X11)
+      x11*: SysWMMsgX11Obj
 
 proc getTime(): float64 =
     return float64(sdl.getPerformanceCounter()*1000) / float64 sdl.getPerformanceFrequency()
@@ -38,6 +68,7 @@ proc getTime(): float64 =
 proc linkSDL2BGFX(window: sdl.WindowPtr) =
     var pd: ptr bgfx_platform_data_t = create(bgfx_platform_data_t) 
     var info: sdl.WMinfo
+    version(info.version)
     assert sdl.getWMInfo(window, info)
     echo  "SDL2 version: $1.$2.$3 - Subsystem: $4".format(info.version.major.int, info.version.minor.int, info.version.patch.int, 
     info.subsystem)
