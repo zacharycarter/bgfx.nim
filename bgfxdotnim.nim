@@ -9,7 +9,7 @@ else:
   const
     libname* = "libgbfx-shared-lib(Debug|Release).so"
 
-import bgfx/defines
+import bgfxdotnim/defines
 export defines
 
 type va_list* {.importc,header:"<stdarg.h>".} = object

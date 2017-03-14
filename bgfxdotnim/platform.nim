@@ -9,7 +9,7 @@ else:
   const
     libname* = "libhyperclient.so"
 
-import defines, bgfx
+import defines, ../bgfxdotnim
 export defines
 
 ## 
