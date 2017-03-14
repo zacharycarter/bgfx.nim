@@ -1,6 +1,5 @@
 import
-  bgfx.bgfx,
-  bgfx.platform as platform,
+  bgfxdotnim,
   sdl2 as sdl
 
 when defined(macosx):
