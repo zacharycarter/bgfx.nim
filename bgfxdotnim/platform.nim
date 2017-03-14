@@ -1,13 +1,13 @@
  {.deadCodeElim: on.}
 when defined(windows):
   const
-    libname* = "libhyperclient.dll"
+    libname* = "bgfx-shared-lib(Debug|Release).dll"
 elif defined(macosx):
   const
-    libname* = "libbgfx-shared-libDebug.dylib"
+    libname* = "libbgfx-shared-lib(Debug|Release).dylib"
 else:
   const
-    libname* = "libhyperclient.so"
+    libname* = "libbgfx-shared-lib(Debug|Release).so"
 
 import defines, ../bgfxdotnim
 export defines
