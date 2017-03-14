@@ -7,7 +7,7 @@ elif defined(macosx):
     libname* = "libbgfx-shared-lib(Debug|Release).dylib"
 else:
   const
-    libname* = "libbgbfx-shared-lib(Debug|Release).so"
+    libname* = "libbgfx-shared-lib(Debug|Release).so"
 
 import bgfxdotnim/defines
 export defines
