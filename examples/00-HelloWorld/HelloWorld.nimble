@@ -8,5 +8,5 @@ license       = "MIT"
 # Dependencies
 
 requires "nim >= 0.16.0"
-requires "https://github.com/zacharycarter/nim.bgfx.git"
-requires "sdl >= 1.1"
+requires "https://github.com/zacharycarter/bgfx.nim.git"
+requires "sdl2 >= 1.1"
