@@ -58,7 +58,7 @@ when defined(linux):
   type
     SysWMmsgX11Obj* = object  ## when defined(SDL_VIDEO_DRIVER_X11)
       display*: ptr xlib.TXDisplay  ##  The X11 display
-      window*: x.TWindow            ##  The X11 window
+      window*: ptr x.TWindow            ##  The X11 window
 
 
     SysWMinfoKindObj* = object ## when defined(SDL_VIDEO_DRIVER_X11)
