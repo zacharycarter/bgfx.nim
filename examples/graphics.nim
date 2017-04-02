@@ -64,11 +64,13 @@ when defined(linux):
     SysWMinfoKindObj* = object ## when defined(SDL_VIDEO_DRIVER_X11)
       x11*: SysWMMsgX11Obj
 
+template workaround_create[T]: ptr T = cast[ptr T](alloc0(sizeof(T)))
+
 proc getTime(): float64 =
     return float64(sdl.getPerformanceCounter()*1000) / float64 sdl.getPerformanceFrequency()
 
 proc linkSDL2BGFX(window: sdl.WindowPtr) =
-    var pd: ptr bgfx_platform_data_t = create(bgfx_platform_data_t) 
+    var pd: ptr bgfx_platform_data_t = workaround_create[bgfx_platform_data_t]() 
     var info: sdl.WMinfo
     version(info.version)
     assert sdl.getWMInfo(window, info)
