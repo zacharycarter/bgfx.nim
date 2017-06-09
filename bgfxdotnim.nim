@@ -69,10 +69,10 @@ type
   bgfx_attrib_t* {.size: sizeof(cint).} = enum
     BGFX_ATTRIB_POSITION, BGFX_ATTRIB_NORMAL, BGFX_ATTRIB_TANGENT,
     BGFX_ATTRIB_BITANGENT, BGFX_ATTRIB_COLOR0, BGFX_ATTRIB_COLOR1,
-    BGFX_ATTRIB_INDICES, BGFX_ATTRIB_WEIGHT, BGFX_ATTRIB_TEXCOORD0,
-    BGFX_ATTRIB_TEXCOORD1, BGFX_ATTRIB_TEXCOORD2, BGFX_ATTRIB_TEXCOORD3,
-    BGFX_ATTRIB_TEXCOORD4, BGFX_ATTRIB_TEXCOORD5, BGFX_ATTRIB_TEXCOORD6,
-    BGFX_ATTRIB_TEXCOORD7, BGFX_ATTRIB_COUNT
+    BGFX_ATTRIB_COLOR2, BGFX_ATTRIB_COLOR3, BGFX_ATTRIB_INDICES, 
+    BGFX_ATTRIB_WEIGHT, BGFX_ATTRIB_TEXCOORD0, BGFX_ATTRIB_TEXCOORD1, 
+    BGFX_ATTRIB_TEXCOORD2, BGFX_ATTRIB_TEXCOORD3, BGFX_ATTRIB_TEXCOORD4, 
+    BGFX_ATTRIB_TEXCOORD5, BGFX_ATTRIB_TEXCOORD6, BGFX_ATTRIB_TEXCOORD7, BGFX_ATTRIB_COUNT
   bgfx_attrib_type_t* {.size: sizeof(cint).} = enum
     BGFX_ATTRIB_TYPE_UINT8, BGFX_ATTRIB_TYPE_UINT10, BGFX_ATTRIB_TYPE_INT16,
     BGFX_ATTRIB_TYPE_HALF, BGFX_ATTRIB_TYPE_FLOAT, BGFX_ATTRIB_TYPE_COUNT
@@ -948,17 +948,17 @@ proc bgfx_set_transient_index_buffer*(tib: ptr bgfx_transient_index_buffer_t;
     importc: "bgfx_set_transient_index_buffer", dynlib: libname.}
 ## 
 
-proc bgfx_set_vertex_buffer*(handle: bgfx_vertex_buffer_handle_t;
+proc bgfx_set_vertex_buffer*(stream: uint8, handle: bgfx_vertex_buffer_handle_t;
                             startVertex: uint32; numVertices: uint32) {.
     importc: "bgfx_set_vertex_buffer", dynlib: libname.}
 ## 
 
-proc bgfx_set_dynamic_vertex_buffer*(handle: bgfx_dynamic_vertex_buffer_handle_t;
+proc bgfx_set_dynamic_vertex_buffer*(stream: uint8, handle: bgfx_dynamic_vertex_buffer_handle_t;
                                     startVertex: uint32; numVertices: uint32) {.
     importc: "bgfx_set_dynamic_vertex_buffer", dynlib: libname.}
 ## 
 
-proc bgfx_set_transient_vertex_buffer*(tvb: ptr bgfx_transient_vertex_buffer_t;
+proc bgfx_set_transient_vertex_buffer*(stream: uint8, tvb: ptr bgfx_transient_vertex_buffer_t;
                                       startVertex: uint32;
                                       numVertices: uint32) {.
     importc: "bgfx_set_transient_vertex_buffer", dynlib: libname.}

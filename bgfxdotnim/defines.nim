@@ -4,7 +4,7 @@
 ## 
 
 const
-  BGFX_API_VERSION* = 39u32
+  BGFX_API_VERSION* = 42u32
 
 ## /
 
