@@ -260,6 +260,7 @@ const
   BGFX_DEBUG_IFH* = 0x00000002u32 ## !< Enable infinitely fast hardware test. No draw calls will be submitted to driver. It’s useful when profiling to quickly assess bottleneck between CPU and GPU.
   BGFX_DEBUG_STATS* = 0x00000004u32 ## !< Enable statistics display.
   BGFX_DEBUG_TEXT* = 0x00000008u32 ## !< Enable debug text display.
+  BGFX_DEBUG_PROFILER* = 0x00000010u32 ## !< Enable profiler.
 
 ## /
 
