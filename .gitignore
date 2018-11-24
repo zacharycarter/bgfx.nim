@@ -1,1 +1,18 @@
+# Any path
+*.swp
+*~
 nimcache/
+
+# Absolute paths
+/src/zeal
+
+# executables from test and build
+/examples/00-HelloWorld/main
+
+# Windows executables
+*.exe
+*.dll
+
+# VCC compiler and linker artifacts
+*.ilk
+*.pdb

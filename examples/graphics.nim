@@ -119,13 +119,16 @@ proc init*(graphics: Graphics, title: string, width, height: int, flags: uint32)
 
   linkSDL2BGFX(graphics.rootWindow.handle)
 
-  if not bgfx_init(BGFX_RENDERER_TYPE_COUNT, 0'u16, 0, nil, nil):
+  var init: bgfx_init_t
+  bgfx_init_ctor(addr init)
+
+  if not bgfx_init(addr init):
     echo "Error initializng BGFX."
     quit(QUIT_FAILURE)
 
   bgfx_set_debug(BGFX_DEBUG_TEXT)
 
-  bgfx_reset(uint32 width, uint32 height, BGFX_RESET_NONE)
+  bgfx_reset(uint32 width, uint32 height, BGFX_RESET_NONE, BGFX_TEXTURE_FORMAT_COUNT)
 
   bgfx_set_view_rect(0, 0, 0, uint16 width, uint16 height)
 

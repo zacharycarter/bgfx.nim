@@ -55,7 +55,7 @@ while runGame:
   last = now
   var toMs = 1000.0'f32
 
-  discard bgfx_touch(0)
+  bgfx_touch(0)
 
   bgfx_dbg_text_clear(0, false)
   bgfx_dbg_text_printf(1, 1, 0x0f, "Frame: %7.3f[ms] FPS: %7.3f", float32(frameTime), (1.0 / frameTime) * toMs)
