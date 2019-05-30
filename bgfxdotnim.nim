@@ -1,7 +1,7 @@
 {.deadCodeElim: on.}
 when defined(windows):
   const
-    bgfxdll* = "libbgfx-shared-lib(Debug|Release).dll"
+    bgfxdll* = "bgfx-shared-lib(Debug|Release).dll"
 elif defined(macosx):
   const
     bgfxdll* = "libbgfx-shared-lib(Debug|Release).dylib"

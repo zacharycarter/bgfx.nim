@@ -3,7 +3,7 @@ import
 
 import
   bgfxdotnim
-  , bgfxdotnim.platform
+  , bgfxdotnim/platform
   , sdl2 as sdl
 
 import 
@@ -44,11 +44,11 @@ type
 
 when defined(macosx):
   type
-    SysWMinfoCocoaObj = object
+    SysWMInfoCocoaObj = object
       window: pointer ## The Cocoa window
 
-    SysWMinfoKindObj = object
-      cocoa: SysWMinfoCocoaObj
+    SysWMInfoKindObj = object
+      cocoa: SysWMInfoCocoaObj
 
 when defined(linux):
   import 
@@ -61,8 +61,17 @@ when defined(linux):
       window*: ptr x.TWindow            ##  The X11 window
 
 
-    SysWMinfoKindObj* = object ## when defined(SDL_VIDEO_DRIVER_X11)
+    SysWMInfoKindObj* = object ## when defined(SDL_VIDEO_DRIVER_X11)
       x11*: SysWMMsgX11Obj
+
+when defined(windows):
+  type
+    SysWMMsgWinObj* = object  ##  when defined(SDL_VIDEO_DRIVER_WINDOWS)
+      window*: pointer
+
+    SysWMInfoKindObj* = object ##  when defined(SDL_VIDEO_DRIVER_WINDOWS)
+      win*: SysWMMsgWinObj  
+
 
 template workaround_create[T]: ptr T = cast[ptr T](alloc0(sizeof(T)))
 
@@ -80,16 +89,17 @@ proc linkSDL2BGFX(window: sdl.WindowPtr) =
     case(info.subsystem):
         of SysWM_Windows:
           when defined(windows):
-            pd.nwh = cast[pointer](info.info.win.window)
+            let info = cast[ptr SysWMInfoKindObj](addr info.padding[0])
+            pd.nwh = cast[pointer](info.win.window)
           pd.ndt = nil
         of SysWM_X11:
           when defined(linux):
-            let info = cast[ptr SysWMinfoKindObj](addr info.padding[0])
+            let info = cast[ptr SysWMInfoKindObj](addr info.padding[0])
             pd.nwh = info.x11.window
             pd.ndt = info.x11.display
         of SysWM_Cocoa:
           when defined(macosx):
-            let info = cast[ptr SysWMinfoKindObj](addr info.padding[0])
+            let info = cast[ptr SysWMInfoKindObj](addr info.padding[0])
             pd.nwh = info.cocoa.window
           pd.ndt = nil
         else:
