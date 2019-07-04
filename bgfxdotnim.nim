@@ -371,7 +371,7 @@ type
     callback*: ptr bgfx_callback_interface_t
     allocator*: ptr bgfx_allocator_interface_t
 
-
+const BGFX_INVALID_HANDLE* = bgfx_shader_handle_t(idx: uint16.high)
 
 
 
