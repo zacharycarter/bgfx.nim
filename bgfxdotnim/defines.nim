@@ -608,3 +608,5 @@ const
   BGFX_CUBE_MAP_NEGATIVE_Y* = (0x00000003) ## !< Cubemap -y.
   BGFX_CUBE_MAP_POSITIVE_Z* = (0x00000004) ## !< Cubemap +z.
   BGFX_CUBE_MAP_NEGATIVE_Z* = (0x00000005) ## !< Cubemap -z.
+
+const BGFX_INVALID_HANDLE* = uint16.high
