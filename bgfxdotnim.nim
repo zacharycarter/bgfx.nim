@@ -146,7 +146,7 @@ type
   bgfx_vertex_decl_handle_t* {.bycopy.} = object
     idx*: uint16
 
-  bgfx_release_fn_t* = proc (`ptr`: pointer; userData: pointer)
+  bgfx_release_fn_t* = proc (`ptr`: pointer; userData: pointer) {.cdecl.}
   bgfx_memory_t* {.bycopy.} = object
     data*: ptr uint8
     size*: uint32
@@ -303,34 +303,35 @@ type
     BGFX_FATAL_DEBUG_CHECK, BGFX_FATAL_INVALID_SHADER,
     BGFX_FATAL_UNABLE_TO_INITIALIZE, BGFX_FATAL_UNABLE_TO_CREATE_TEXTURE,
     BGFX_FATAL_DEVICE_LOST, BGFX_FATAL_COUNT
+    
   bgfx_callback_interface_t* {.bycopy.} = object
     vtbl*: ptr bgfx_callback_vtbl_t
 
   bgfx_callback_vtbl_t* {.bycopy.} = object
     fatal*: proc (this: ptr bgfx_callback_interface_t; filePath: cstring; line: uint16;
-                code: bgfx_fatal_t; str: cstring)
+                code: bgfx_fatal_t; str: cstring) {.cdecl.}
     trace_vargs*: proc (this: ptr bgfx_callback_interface_t; filePath: cstring;
-                      line: uint16; format: cstring; argList: va_list)
+                      line: uint16; format: cstring; argList: va_list) {.cdecl.}
     profiler_begin*: proc (this: ptr bgfx_callback_interface_t; name: cstring;
-                         abgr: uint32; filePath: cstring; line: uint16)
+                         abgr: uint32; filePath: cstring; line: uint16) {.cdecl.}
     profiler_begin_literal*: proc (this: ptr bgfx_callback_interface_t;
                                  name: cstring; abgr: uint32; filePath: cstring;
-                                 line: uint16)
-    profiler_end*: proc (this: ptr bgfx_callback_interface_t)
-    cache_read_size*: proc (this: ptr bgfx_callback_interface_t; id: uint64): uint32
+                                 line: uint16) {.cdecl.}
+    profiler_end*: proc (this: ptr bgfx_callback_interface_t) {.cdecl.}
+    cache_read_size*: proc (this: ptr bgfx_callback_interface_t; id: uint64): uint32 {.cdecl.}
     cache_read*: proc (this: ptr bgfx_callback_interface_t; id: uint64; data: pointer;
-                     size: uint32): bool
+                     size: uint32): bool {.cdecl.}
     cache_write*: proc (this: ptr bgfx_callback_interface_t; id: uint64; data: pointer;
-                      size: uint32)
+                      size: uint32) {.cdecl.}
     screen_shot*: proc (this: ptr bgfx_callback_interface_t; filePath: cstring;
                       width: uint32; height: uint32; pitch: uint32; data: pointer;
-                      size: uint32; yflip: bool)
+                      size: uint32; yflip: bool) {.cdecl.}
     capture_begin*: proc (this: ptr bgfx_callback_interface_t; width: uint32;
                         height: uint32; pitch: uint32;
-                        format: bgfx_texture_format_t; yflip: bool)
-    capture_end*: proc (this: ptr bgfx_callback_interface_t)
+                        format: bgfx_texture_format_t; yflip: bool) {.cdecl.}
+    capture_end*: proc (this: ptr bgfx_callback_interface_t) {.cdecl.}
     capture_frame*: proc (this: ptr bgfx_callback_interface_t; data: pointer;
-                        size: uint32)
+                        size: uint32) {.cdecl.}
 
   bgfx_allocator_interface_t* {.bycopy.} = object
     vtbl*: ptr bgfx_allocator_vtbl_t
