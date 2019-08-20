@@ -402,11 +402,11 @@ const
 ## /
 
 const
-  BGFX_BUFFER_COMPUTE_READ* = (0x00000100) ## !< Buffer will be read by shader.
-  BGFX_BUFFER_COMPUTE_WRITE* = (0x00000200) ## !< Buffer will be used for writing.
-  BGFX_BUFFER_DRAW_INDIRECT* = (0x00000400) ## !< Buffer will be used for storing draw indirect commands.
-  BGFX_BUFFER_ALLOW_RESIZE* = (0x00000800) ## !< Allow dynamic index/vertex buffer resize during update.
-  BGFX_BUFFER_INDEX32* = (0x00001000) ## !< Index buffer contains 32-bit indices.
+  BGFX_BUFFER_COMPUTE_READ* = (0x00000100'u16) ## !< Buffer will be read by shader.
+  BGFX_BUFFER_COMPUTE_WRITE* = (0x00000200'u16) ## !< Buffer will be used for writing.
+  BGFX_BUFFER_DRAW_INDIRECT* = (0x00000400'u16) ## !< Buffer will be used for storing draw indirect commands.
+  BGFX_BUFFER_ALLOW_RESIZE* = (0x00000800'u16) ## !< Allow dynamic index/vertex buffer resize during update.
+  BGFX_BUFFER_INDEX32* = (0x00001000'u16) ## !< Index buffer contains 32-bit indices.
 
 ## /
 
