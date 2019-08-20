@@ -406,13 +406,13 @@ const
   BGFX_BUFFER_COMPUTE_WRITE* = (0x00000200) ## !< Buffer will be used for writing.
   BGFX_BUFFER_DRAW_INDIRECT* = (0x00000400) ## !< Buffer will be used for storing draw indirect commands.
   BGFX_BUFFER_ALLOW_RESIZE* = (0x00000800) ## !< Allow dynamic index/vertex buffer resize during update.
-  BGFX_BUFFER_INDEX32* = (0x00001000) ## !< Index buffer contains 32-bit indices.
+  BGFX_BUFFER_INDEX32* = (0x00001000'u64) ## !< Index buffer contains 32-bit indices.
 
 ## /
 
 const
   BGFX_BUFFER_COMPUTE_READ_WRITE* = (
-    0'u64 or BGFX_BUFFER_COMPUTE_READ or BGFX_BUFFER_COMPUTE_WRITE)
+    0'u16 or BGFX_BUFFER_COMPUTE_READ or BGFX_BUFFER_COMPUTE_WRITE)
 
 ## / Texture creation flags.
 

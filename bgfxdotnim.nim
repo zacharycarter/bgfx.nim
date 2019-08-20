@@ -148,11 +148,11 @@ type
 
   bgfx_release_fn_t* = proc (`ptr`: pointer; userData: pointer) {.cdecl.}
   bgfx_memory_t* {.bycopy.} = object
-    data*: ptr uint8
+    data*: pointer
     size*: uint32
 
   bgfx_transform_t* {.bycopy.} = object
-    data*: ptr cfloat
+    data*: pointer
     num*: uint16
 
   bgfx_view_id_t* = uint16
@@ -203,9 +203,9 @@ type
     textWidth*: uint16
     textHeight*: uint16
     numViews*: uint16
-    viewStats*: ptr bgfx_view_stats_t
+    viewStats*: pointer
     numEncoders*: uint8
-    encoderStats*: ptr bgfx_encoder_stats_t
+    encoderStats*: pointer
 
   bgfx_vertex_decl_t* {.bycopy.} = object
     hash*: uint32
@@ -214,13 +214,13 @@ type
     attributes*: array[BGFX_ATTRIB_COUNT, uint16]
 
   bgfx_transient_index_buffer_t* {.bycopy.} = object
-    data*: ptr uint8
+    data*: pointer
     size*: uint32
     handle*: bgfx_index_buffer_handle_t
     startIndex*: uint32
 
   bgfx_transient_vertex_buffer_t* {.bycopy.} = object
-    data*: ptr uint8
+    data*: pointer
     size*: uint32
     startVertex*: uint32
     stride*: uint16
@@ -228,7 +228,7 @@ type
     decl*: bgfx_vertex_decl_handle_t
 
   bgfx_instance_data_buffer_t* {.bycopy.} = object
-    data*: ptr uint8
+    data*: pointer
     size*: uint32
     offset*: uint32
     num*: uint32
