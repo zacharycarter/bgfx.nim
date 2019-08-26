@@ -143,7 +143,7 @@ type
   bgfx_vertex_buffer_handle_t* {.bycopy.} = object
     idx*: uint16
 
-  bgfx_vertex_decl_handle_t* {.bycopy.} = object
+  bgfx_vertex_layout_handle_t* {.bycopy.} = object
     idx*: uint16
 
   bgfx_release_fn_t* = proc (`ptr`: pointer; userData: pointer) {.cdecl.}
@@ -207,7 +207,7 @@ type
     numEncoders*: uint8
     encoderStats*: pointer
 
-  bgfx_vertex_decl_t* {.bycopy.} = object
+  bgfx_vertex_layout_t* {.bycopy.} = object
     hash*: uint32
     stride*: uint16
     offset*: array[BGFX_ATTRIB_COUNT, uint16]
@@ -225,7 +225,7 @@ type
     startVertex*: uint32
     stride*: uint16
     handle*: bgfx_vertex_buffer_handle_t
-    decl*: bgfx_vertex_decl_handle_t
+    decl*: bgfx_vertex_layout_handle_t
 
   bgfx_instance_data_buffer_t* {.bycopy.} = object
     data*: pointer
@@ -386,35 +386,35 @@ const BGFX_INVALID_HANDLE* = bgfx_shader_handle_t(idx: uint16.high)
 
 
 
-proc bgfx_vertex_decl_begin*(decl: ptr bgfx_vertex_decl_t;
+proc bgfx_vertex_layout_begin*(decl: ptr bgfx_vertex_layout_t;
                             renderer: bgfx_renderer_type_t) {.
-    importc: "bgfx_vertex_decl_begin", dynlib: bgfxdll.}
-proc bgfx_vertex_decl_add*(decl: ptr bgfx_vertex_decl_t; attrib: bgfx_attrib_t;
+    importc: "bgfx_vertex_layout_begin", dynlib: bgfxdll.}
+proc bgfx_vertex_layout_add*(decl: ptr bgfx_vertex_layout_t; attrib: bgfx_attrib_t;
                           num: uint8; `type`: bgfx_attrib_type_t; normalized: bool;
-                          asInt: bool) {.importc: "bgfx_vertex_decl_add",
+                          asInt: bool) {.importc: "bgfx_vertex_layout_add",
                                        dynlib: bgfxdll.}
-proc bgfx_vertex_decl_decode*(decl: ptr bgfx_vertex_decl_t; attrib: bgfx_attrib_t;
+proc bgfx_vertex_layout_decode*(decl: ptr bgfx_vertex_layout_t; attrib: bgfx_attrib_t;
                              num: ptr uint8; `type`: ptr bgfx_attrib_type_t;
                              normalized: ptr bool; asInt: ptr bool) {.
-    importc: "bgfx_vertex_decl_decode", dynlib: bgfxdll.}
-proc bgfx_vertex_decl_has*(decl: ptr bgfx_vertex_decl_t; attrib: bgfx_attrib_t): bool {.
-    importc: "bgfx_vertex_decl_has", dynlib: bgfxdll.}
-proc bgfx_vertex_decl_skip*(decl: ptr bgfx_vertex_decl_t; num: uint8) {.
-    importc: "bgfx_vertex_decl_skip", dynlib: bgfxdll.}
-proc bgfx_vertex_decl_end*(decl: ptr bgfx_vertex_decl_t) {.
-    importc: "bgfx_vertex_decl_end", dynlib: bgfxdll.}
+    importc: "bgfx_vertex_layout_decode", dynlib: bgfxdll.}
+proc bgfx_vertex_layout_has*(decl: ptr bgfx_vertex_layout_t; attrib: bgfx_attrib_t): bool {.
+    importc: "bgfx_vertex_layout_has", dynlib: bgfxdll.}
+proc bgfx_vertex_layout_skip*(decl: ptr bgfx_vertex_layout_t; num: uint8) {.
+    importc: "bgfx_vertex_layout_skip", dynlib: bgfxdll.}
+proc bgfx_vertex_layout_end*(decl: ptr bgfx_vertex_layout_t) {.
+    importc: "bgfx_vertex_layout_end", dynlib: bgfxdll.}
 proc bgfx_vertex_pack*(input: array[4, cfloat]; inputNormalized: bool;
-                      attr: bgfx_attrib_t; decl: ptr bgfx_vertex_decl_t;
+                      attr: bgfx_attrib_t; decl: ptr bgfx_vertex_layout_t;
                       data: pointer; index: uint32) {.importc: "bgfx_vertex_pack",
     dynlib: bgfxdll.}
 proc bgfx_vertex_unpack*(output: array[4, cfloat]; attr: bgfx_attrib_t;
-                        decl: ptr bgfx_vertex_decl_t; data: pointer; index: uint32) {.
+                        decl: ptr bgfx_vertex_layout_t; data: pointer; index: uint32) {.
     importc: "bgfx_vertex_unpack", dynlib: bgfxdll.}
-proc bgfx_vertex_convert*(destDecl: ptr bgfx_vertex_decl_t; destData: pointer;
-                         srcDecl: ptr bgfx_vertex_decl_t; srcData: pointer;
+proc bgfx_vertex_convert*(destDecl: ptr bgfx_vertex_layout_t; destData: pointer;
+                         srcDecl: ptr bgfx_vertex_layout_t; srcData: pointer;
                          num: uint32) {.importc: "bgfx_vertex_convert",
                                       dynlib: bgfxdll.}
-proc bgfx_weld_vertices*(output: ptr uint16; decl: ptr bgfx_vertex_decl_t;
+proc bgfx_weld_vertices*(output: ptr uint16; decl: ptr bgfx_vertex_layout_t;
                         data: pointer; num: uint16; epsilon: cfloat): uint16 {.
     importc: "bgfx_weld_vertices", dynlib: bgfxdll.}
 proc bgfx_topology_convert*(conversion: bgfx_topology_convert_t; dst: pointer;
@@ -470,7 +470,7 @@ proc bgfx_create_index_buffer*(mem: ptr bgfx_memory_t; flags: uint16): bgfx_inde
 proc bgfx_destroy_index_buffer*(handle: bgfx_index_buffer_handle_t) {.
     importc: "bgfx_destroy_index_buffer", dynlib: bgfxdll.}
 proc bgfx_create_vertex_buffer*(mem: ptr bgfx_memory_t;
-                               decl: ptr bgfx_vertex_decl_t; flags: uint16): bgfx_vertex_buffer_handle_t {.
+                               decl: ptr bgfx_vertex_layout_t; flags: uint16): bgfx_vertex_buffer_handle_t {.
     importc: "bgfx_create_vertex_buffer", dynlib: bgfxdll.}
 proc bgfx_destroy_vertex_buffer*(handle: bgfx_vertex_buffer_handle_t) {.
     importc: "bgfx_destroy_vertex_buffer", dynlib: bgfxdll.}
@@ -483,11 +483,11 @@ proc bgfx_update_dynamic_index_buffer*(handle: bgfx_dynamic_index_buffer_handle_
     importc: "bgfx_update_dynamic_index_buffer", dynlib: bgfxdll.}
 proc bgfx_destroy_dynamic_index_buffer*(handle: bgfx_dynamic_index_buffer_handle_t) {.
     importc: "bgfx_destroy_dynamic_index_buffer", dynlib: bgfxdll.}
-proc bgfx_create_dynamic_vertex_buffer*(num: uint32; decl: ptr bgfx_vertex_decl_t;
+proc bgfx_create_dynamic_vertex_buffer*(num: uint32; decl: ptr bgfx_vertex_layout_t;
                                        flags: uint16): bgfx_dynamic_vertex_buffer_handle_t {.
     importc: "bgfx_create_dynamic_vertex_buffer", dynlib: bgfxdll.}
 proc bgfx_create_dynamic_vertex_buffer_mem*(mem: ptr bgfx_memory_t;
-    decl: ptr bgfx_vertex_decl_t; flags: uint16): bgfx_dynamic_vertex_buffer_handle_t {.
+    decl: ptr bgfx_vertex_layout_t; flags: uint16): bgfx_dynamic_vertex_buffer_handle_t {.
     importc: "bgfx_create_dynamic_vertex_buffer_mem", dynlib: bgfxdll.}
 proc bgfx_update_dynamic_vertex_buffer*(handle: bgfx_dynamic_vertex_buffer_handle_t;
                                        startVertex: uint32; mem: ptr bgfx_memory_t) {.
@@ -497,7 +497,7 @@ proc bgfx_destroy_dynamic_vertex_buffer*(handle: bgfx_dynamic_vertex_buffer_hand
 proc bgfx_get_avail_transient_index_buffer*(num: uint32): uint32 {.
     importc: "bgfx_get_avail_transient_index_buffer", dynlib: bgfxdll.}
 proc bgfx_get_avail_transient_vertex_buffer*(num: uint32;
-    decl: ptr bgfx_vertex_decl_t): uint32 {.importc: "bgfx_get_avail_transient_vertex_buffer",
+    decl: ptr bgfx_vertex_layout_t): uint32 {.importc: "bgfx_get_avail_transient_vertex_buffer",
                                         dynlib: bgfxdll.}
 proc bgfx_get_avail_instance_data_buffer*(num: uint32; stride: uint16): uint32 {.
     importc: "bgfx_get_avail_instance_data_buffer", dynlib: bgfxdll.}
@@ -505,10 +505,10 @@ proc bgfx_alloc_transient_index_buffer*(tib: ptr bgfx_transient_index_buffer_t;
                                        num: uint32) {.
     importc: "bgfx_alloc_transient_index_buffer", dynlib: bgfxdll.}
 proc bgfx_alloc_transient_vertex_buffer*(tvb: ptr bgfx_transient_vertex_buffer_t;
-                                        num: uint32; decl: ptr bgfx_vertex_decl_t) {.
+                                        num: uint32; decl: ptr bgfx_vertex_layout_t) {.
     importc: "bgfx_alloc_transient_vertex_buffer", dynlib: bgfxdll.}
 proc bgfx_alloc_transient_buffers*(tvb: ptr bgfx_transient_vertex_buffer_t;
-                                  decl: ptr bgfx_vertex_decl_t;
+                                  decl: ptr bgfx_vertex_layout_t;
                                   numVertices: uint32;
                                   tib: ptr bgfx_transient_index_buffer_t;
                                   numIndices: uint32): bool {.
@@ -739,11 +739,11 @@ proc bgfx_set_compute_indirect_buffer*(stage: uint8;
                                       access: bgfx_access_t) {.
     importc: "bgfx_set_compute_indirect_buffer", dynlib: bgfxdll.}
 proc bgfx_dispatch*(id: bgfx_view_id_t; handle: bgfx_program_handle_t; numX: uint32;
-                   numY: uint32; numZ: uint32; flags: uint8) {.
+                   numY: uint32; numZ: uint32) {.
     importc: "bgfx_dispatch", dynlib: bgfxdll.}
 proc bgfx_dispatch_indirect*(id: bgfx_view_id_t; handle: bgfx_program_handle_t;
                             indirectHandle: bgfx_indirect_buffer_handle_t;
-                            start: uint16; num: uint16; flags: uint8) {.
+                            start: uint16; num: uint16) {.
     importc: "bgfx_dispatch_indirect", dynlib: bgfxdll.}
 proc bgfx_discard*() {.importc: "bgfx_discard", dynlib: bgfxdll.}
 proc bgfx_blit*(id: bgfx_view_id_t; dst: bgfx_texture_handle_t; dstMip: uint8;
@@ -856,12 +856,12 @@ proc bgfx_encoder_set_compute_indirect_buffer*(encoder: ptr bgfx_encoder_s;
     importc: "bgfx_encoder_set_compute_indirect_buffer", dynlib: bgfxdll.}
 proc bgfx_encoder_dispatch*(encoder: ptr bgfx_encoder_s; id: bgfx_view_id_t;
                            handle: bgfx_program_handle_t; numX: uint32;
-                           numY: uint32; numZ: uint32; flags: uint8) {.
+                           numY: uint32; numZ: uint32) {.
     importc: "bgfx_encoder_dispatch", dynlib: bgfxdll.}
 proc bgfx_encoder_dispatch_indirect*(encoder: ptr bgfx_encoder_s;
                                     id: bgfx_view_id_t;
                                     handle: bgfx_program_handle_t; indirectHandle: bgfx_indirect_buffer_handle_t;
-                                    start: uint16; num: uint16; flags: uint8) {.
+                                    start: uint16; num: uint16) {.
     importc: "bgfx_encoder_dispatch_indirect", dynlib: bgfxdll.}
 proc bgfx_encoder_discard*(encoder: ptr bgfx_encoder_s) {.
     importc: "bgfx_encoder_discard", dynlib: bgfxdll.}
