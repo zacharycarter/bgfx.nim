@@ -46,26 +46,26 @@ type
     override_internal_texture*: proc (handle: bgfx_texture_handle_t; width: uint16;
                                     height: uint16; numMips: uint8;
                                     format: bgfx_texture_format_t; flags: uint32): pointer
-    vertex_decl_begin*: proc (decl: ptr bgfx_vertex_decl_t;
+    vertex_layout_begin*: proc (decl: ptr bgfx_vertex_layout_t;
                             renderer: bgfx_renderer_type_t)
-    vertex_decl_add*: proc (decl: ptr bgfx_vertex_decl_t; attrib: bgfx_attrib_t;
+    vertex_layout_add*: proc (decl: ptr bgfx_vertex_layout_t; attrib: bgfx_attrib_t;
                           num: uint8; `type`: bgfx_attrib_type_t; normalized: bool;
                           asInt: bool)
-    vertex_decl_decode*: proc (decl: ptr bgfx_vertex_decl_t; attrib: bgfx_attrib_t;
+    vertex_layout_decode*: proc (decl: ptr bgfx_vertex_layout_t; attrib: bgfx_attrib_t;
                              num: ptr uint8; `type`: ptr bgfx_attrib_type_t;
                              normalized: ptr bool; asInt: ptr bool)
-    vertex_decl_has*: proc (decl: ptr bgfx_vertex_decl_t; attrib: bgfx_attrib_t): bool
-    vertex_decl_skip*: proc (decl: ptr bgfx_vertex_decl_t; num: uint8)
-    vertex_decl_end*: proc (decl: ptr bgfx_vertex_decl_t)
+    vertex_layout_has*: proc (decl: ptr bgfx_vertex_layout_t; attrib: bgfx_attrib_t): bool
+    vertex_layout_skip*: proc (decl: ptr bgfx_vertex_layout_t; num: uint8)
+    vertex_layout_end*: proc (decl: ptr bgfx_vertex_layout_t)
     vertex_pack*: proc (input: array[4, cfloat]; inputNormalized: bool;
-                      attr: bgfx_attrib_t; decl: ptr bgfx_vertex_decl_t;
+                      attr: bgfx_attrib_t; decl: ptr bgfx_vertex_layout_t;
                       data: pointer; index: uint32)
     vertex_unpack*: proc (output: array[4, cfloat]; attr: bgfx_attrib_t;
-                        decl: ptr bgfx_vertex_decl_t; data: pointer; index: uint32)
-    vertex_convert*: proc (destDecl: ptr bgfx_vertex_decl_t; destData: pointer;
-                         srcDecl: ptr bgfx_vertex_decl_t; srcData: pointer;
+                        decl: ptr bgfx_vertex_layout_t; data: pointer; index: uint32)
+    vertex_convert*: proc (destDecl: ptr bgfx_vertex_layout_t; destData: pointer;
+                         srcDecl: ptr bgfx_vertex_layout_t; srcData: pointer;
                          num: uint32)
-    weld_vertices*: proc (output: ptr uint16; decl: ptr bgfx_vertex_decl_t;
+    weld_vertices*: proc (output: ptr uint16; decl: ptr bgfx_vertex_layout_t;
                         data: pointer; num: uint16; epsilon: cfloat): uint16
     topology_convert*: proc (conversion: bgfx_topology_convert_t; dst: pointer;
                            dstSize: uint32; indices: pointer; numIndices: uint32;
@@ -101,30 +101,30 @@ type
     create_index_buffer*: proc (mem: ptr bgfx_memory_t; flags: uint16): bgfx_index_buffer_handle_t
     destroy_index_buffer*: proc (handle: bgfx_index_buffer_handle_t)
     create_vertex_buffer*: proc (mem: ptr bgfx_memory_t;
-                               decl: ptr bgfx_vertex_decl_t; flags: uint16): bgfx_vertex_buffer_handle_t
+                               decl: ptr bgfx_vertex_layout_t; flags: uint16): bgfx_vertex_buffer_handle_t
     destroy_vertex_buffer*: proc (handle: bgfx_vertex_buffer_handle_t)
     create_dynamic_index_buffer*: proc (num: uint32; flags: uint16): bgfx_dynamic_index_buffer_handle_t
     create_dynamic_index_buffer_mem*: proc (mem: ptr bgfx_memory_t; flags: uint16): bgfx_dynamic_index_buffer_handle_t
     update_dynamic_index_buffer*: proc (handle: bgfx_dynamic_index_buffer_handle_t;
                                       startIndex: uint32; mem: ptr bgfx_memory_t)
     destroy_dynamic_index_buffer*: proc (handle: bgfx_dynamic_index_buffer_handle_t)
-    create_dynamic_vertex_buffer*: proc (num: uint32; decl: ptr bgfx_vertex_decl_t;
+    create_dynamic_vertex_buffer*: proc (num: uint32; decl: ptr bgfx_vertex_layout_t;
                                        flags: uint16): bgfx_dynamic_vertex_buffer_handle_t
     create_dynamic_vertex_buffer_mem*: proc (mem: ptr bgfx_memory_t;
-        decl: ptr bgfx_vertex_decl_t; flags: uint16): bgfx_dynamic_vertex_buffer_handle_t
+        decl: ptr bgfx_vertex_layout_t; flags: uint16): bgfx_dynamic_vertex_buffer_handle_t
     update_dynamic_vertex_buffer*: proc (handle: bgfx_dynamic_vertex_buffer_handle_t;
                                        startVertex: uint32; mem: ptr bgfx_memory_t)
     destroy_dynamic_vertex_buffer*: proc (handle: bgfx_dynamic_vertex_buffer_handle_t)
     get_avail_transient_index_buffer*: proc (num: uint32): uint32
     get_avail_transient_vertex_buffer*: proc (num: uint32;
-        decl: ptr bgfx_vertex_decl_t): uint32
+        decl: ptr bgfx_vertex_layout_t): uint32
     get_avail_instance_data_buffer*: proc (num: uint32; stride: uint16): uint32
     alloc_transient_index_buffer*: proc (tib: ptr bgfx_transient_index_buffer_t;
                                        num: uint32)
     alloc_transient_vertex_buffer*: proc (tvb: ptr bgfx_transient_vertex_buffer_t;
-                                        num: uint32; decl: ptr bgfx_vertex_decl_t)
+                                        num: uint32; decl: ptr bgfx_vertex_layout_t)
     alloc_transient_buffers*: proc (tvb: ptr bgfx_transient_vertex_buffer_t;
-                                  decl: ptr bgfx_vertex_decl_t;
+                                  decl: ptr bgfx_vertex_layout_t;
                                   numVertices: uint32;
                                   tib: ptr bgfx_transient_index_buffer_t;
                                   numIndices: uint32): bool
