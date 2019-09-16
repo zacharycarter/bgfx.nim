@@ -625,7 +625,7 @@ proc bgfx_set_view_rect*(id: bgfx_view_id_t; x: uint16; y: uint16; width: uint16
                                         dynlib: bgfxdll.}
 proc bgfx_set_view_rect_auto*(id: bgfx_view_id_t; x: uint16; y: uint16;
                              ratio: bgfx_backbuffer_ratio_t) {.
-    importc: "bgfx_set_view_rect_auto", dynlib: bgfxdll.}
+    importc: "bgfx_set_view_rect_ratio", dynlib: bgfxdll.}
 proc bgfx_set_view_scissor*(id: bgfx_view_id_t; x: uint16; y: uint16; width: uint16;
                            height: uint16) {.importc: "bgfx_set_view_scissor",
     dynlib: bgfxdll.}
